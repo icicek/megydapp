@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import {
+    PhantomWalletAdapter,
+    SolflareWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { clusterApiUrl } from '@solana/web3.js';
+import '@solana/wallet-adapter-react-ui/styles.css';
+import TokenList from './TokenList'; // ✅ Token bileşenini dışarıdan alıyoruz
+
+const App = () => {
+    const network = 'devnet'; // test ağı. Mainnet'e geçince 'mainnet-beta' yaz
+    const endpoint = clusterApiUrl(network);
+
+    const wallets = [
+        new PhantomWalletAdapter(),
+        new SolflareWalletAdapter(),
+    ];
+
+    return (
+        <ConnectionProvider endpoint={endpoint}>
+            <WalletProvider wallets={wallets} autoConnect>
+                <WalletModalProvider>
+                    <div style={{
+                        minHeight: '100vh',
+                        padding: '20px',
+                        backgroundColor: '#0e0e0e',
+                        color: '#fff',
+                        fontFamily: 'Arial'
+                    }}>
+                        <h1 style={{ marginBottom: '20px' }}>$MEGY Wallet Connect</h1>
+                        <WalletMultiButton />
+                        <div style={{ marginTop: '40px' }}>
+                            <TokenList />
+                        </div>
+                    </div>
+                </WalletModalProvider>
+            </WalletProvider>
+        </ConnectionProvider>
+    );
+};
 
 export default App;
