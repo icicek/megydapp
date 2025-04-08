@@ -14,6 +14,8 @@ import TokenList from './TokenList';
 import Dashboard from './Dashboard';
 import ClaimPanel from './ClaimPanel';
 
+console.log("🎯 TEST BANNER VERSION LOADED"); // ✅ Konsola düşmesi gerekiyor
+
 const App = () => {
     const network = 'mainnet-beta';
     const endpoint = clusterApiUrl(network);
@@ -36,6 +38,22 @@ const App = () => {
                             fontFamily: 'Arial',
                         }}
                     >
+                        {/* 🚧 TEST MODE BANNER */}
+                        <div
+                            style={{
+                                backgroundColor: '#ffcc00',
+                                color: '#000',
+                                padding: '12px',
+                                textAlign: 'center',
+                                fontWeight: 'bold',
+                                borderRadius: '10px',
+                                marginBottom: '20px',
+                                fontSize: '16px',
+                            }}
+                        >
+                            🚧 This is a <u>test version</u> of the Coincarnation platform. Distribution has not started yet.
+                        </div>
+
                         <h1 style={{ marginBottom: '20px' }}>MEMERGY Wallet Portal</h1>
 
                         <div style={{ marginBottom: '20px' }}>
